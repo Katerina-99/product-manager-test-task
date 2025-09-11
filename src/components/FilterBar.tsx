@@ -24,11 +24,11 @@ const FilterBar = () => {
       <span> / </span>
       <button
         onClick={() => handleFilterChange("favorites")}
-        className={
+        className={`hover:text-primary/90 ${
           filter === "favorites"
             ? "border-2  border-primary shadow-xs rounded-md h-9 px-2 hover:border-primary/90"
             : ""
-        }
+        }`}
       >
         Favorites
       </button>
