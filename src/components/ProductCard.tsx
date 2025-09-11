@@ -5,20 +5,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import type { Product } from "@/types/product";
 
-const ProductCard = () => {
+interface ProductCardProp {
+  product: Product;
+}
+
+const ProductCard = ({ product }: ProductCardProp) => {
   return (
-    <Card className="w-full min-w-xs max-w-md gap-4 py-8">
+    <Card className="w-full min-w-2xs max-w-sm gap-4 py-4 md:py-8">
       <CardHeader>
-        <CardTitle>Product Title</CardTitle>
+        <CardTitle className="truncate mb-2">{product.title}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <img
-          src="#"
+          src={product.image}
           alt="Product Title"
-          className="h-40 object-contain mx-auto"
+          className="h-30 object-contain mx-auto"
         />
-        <p>Product Description</p>
+        <p className="line-clamp-2 mb-3">{product.description}</p>
       </CardContent>
       <CardFooter className="flex justify-between">
         <button>🗑️ Delete</button>

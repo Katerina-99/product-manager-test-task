@@ -1,13 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Product } from "@/types/product";
-
-// export interface Product {
-//   id: number;
-//   title: string;
-//   description: string;
-//   image: string;
-//   liked: boolean;
-// }
 
 interface ProductsState {
   products: Product[];
@@ -23,8 +15,8 @@ export const ProductsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setProducts: () => {
-      //будет сохраниять продукты из API
+    setProducts: (state, action: PayloadAction<Product[]>) => {
+      state.products = action.payload;
     },
     removeProduct: () => {
       //будет удалять продукт
