@@ -30,8 +30,8 @@ export const ProductsSlice = createSlice({
         product.liked = !product.liked;
       }
     },
-    setFilter: () => {
-      //устанавливает фильтр
+    setFilter: (state, action: PayloadAction<"all" | "favorites">) => {
+      state.filter = action.payload;
     },
   },
 });

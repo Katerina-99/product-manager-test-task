@@ -3,10 +3,11 @@ import ProductCard from "./ProductCard";
 import { useEffect } from "react";
 import { productsService } from "@/services/productsService";
 import { productAction } from "@/store/productsSlice";
+import Header from "./Header";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
-  const { products } = useAppSelector((state) => state.products);
+  const { products, filter } = useAppSelector((state) => state.products);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -21,11 +22,18 @@ const ProductList = () => {
     loadProducts();
   }, [dispatch]);
 
+  const filteredProducts =
+    filter === "favorites" ? products.filter((p) => p.liked) : products;
+  console.log(filteredProducts);
+
   return (
-    <div className="flex flex-wrap items-center justify-center gap-4 p-4">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div>
+      <Header />
+      <div className="flex flex-wrap items-center justify-center gap-4 p-4">
+        {filteredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };
