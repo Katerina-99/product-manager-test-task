@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { Product } from "@/types/product";
 
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  liked: boolean;
-}
+// export interface Product {
+//   id: number;
+//   title: string;
+//   description: string;
+//   image: string;
+//   liked: boolean;
+// }
 
 interface ProductsState {
   products: Product[];
