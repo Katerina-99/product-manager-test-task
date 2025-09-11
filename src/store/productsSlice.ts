@@ -24,8 +24,11 @@ export const ProductsSlice = createSlice({
     addProduct: () => {
       //добавляет продукт
     },
-    toggleLike: () => {
-      //ставит\убирает лайк
+    toggleLike: (state, action: PayloadAction<number>) => {
+      const product = state.products.find((p) => p.id === action.payload);
+      if (product) {
+        product.liked = !product.liked;
+      }
     },
     setFilter: () => {
       //устанавливает фильтр
