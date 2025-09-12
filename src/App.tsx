@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import "./App.css";
 import ProductList from "./components/ProductList";
+import ProductDetails from "./components/ProductDetails";
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
         <Route path="/" element={<Navigate to="/products" replace />} />
 
         <Route path="/products" element={<ProductList />} />
-        <Route path="/products/:id" element={<div>Product details</div>} />
+        <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/create-product" element={<div>Create product</div>} />
 
         <Route path="*" element={<div>Page not found</div>} />

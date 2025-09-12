@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import ProductCard from "./ProductCard";
 import { useEffect } from "react";
 import { productsService } from "@/services/productsService";
 import { productAction } from "@/store/productsSlice";
+import ProductCard from "./ProductCard";
 import Header from "./Header";
 
 const ProductList = () => {
@@ -24,7 +24,6 @@ const ProductList = () => {
 
   const filteredProducts =
     filter === "favorites" ? products.filter((p) => p.liked) : products;
-  console.log(filteredProducts);
 
   return (
     <div>
