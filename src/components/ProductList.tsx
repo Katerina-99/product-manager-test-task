@@ -19,7 +19,9 @@ const ProductList = () => {
       }
     };
 
-    loadProducts();
+    if (products.length === 0) {
+      loadProducts();
+    }
   }, [dispatch]);
 
   const filteredProducts =
