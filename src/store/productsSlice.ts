@@ -18,8 +18,8 @@ export const ProductsSlice = createSlice({
     setProducts: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
     },
-    removeProduct: () => {
-      //будет удалять продукт
+    removeProduct: (state, action: PayloadAction<number>) => {
+      state.products = state.products.filter((p) => p.id !== action.payload);
     },
     addProduct: () => {
       //добавляет продукт

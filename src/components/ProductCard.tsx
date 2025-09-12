@@ -29,6 +29,7 @@ const ProductCard = ({ product }: ProductCardProp) => {
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
+    dispatch(productAction.removeProduct(product.id));
   };
 
   return (
