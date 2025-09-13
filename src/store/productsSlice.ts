@@ -16,13 +16,15 @@ export const ProductsSlice = createSlice({
   initialState,
   reducers: {
     setProducts: (state, action: PayloadAction<Product[]>) => {
-      state.products = action.payload;
+      if (state.products.length === 0) {
+        state.products = action.payload;
+      }
     },
     removeProduct: (state, action: PayloadAction<number>) => {
       state.products = state.products.filter((p) => p.id !== action.payload);
     },
-    addProduct: () => {
-      //добавляет продукт
+    addProduct: (state, action: PayloadAction<Product>) => {
+      state.products.push(action.payload);
     },
     toggleLike: (state, action: PayloadAction<number>) => {
       const product = state.products.find((p) => p.id === action.payload);

@@ -57,7 +57,7 @@ const ProductCard = ({ product }: ProductCardProp) => {
           🗑️ Delete
         </button>
         <button
-          className="hover:scale-105 transition duration-200"
+          className="text-lg hover:scale-110 transition duration-200"
           onClick={handleLike}
         >
           {product.liked ? "❤️" : "🤍"}

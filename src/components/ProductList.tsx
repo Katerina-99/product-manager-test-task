@@ -10,19 +10,17 @@ const ProductList = () => {
   const { products, filter } = useAppSelector((state) => state.products);
 
   useEffect(() => {
-    if (products.length === 0) {
-      const loadProducts = async () => {
-        try {
-          const data = await productsService.fetchProducts();
-          dispatch(productAction.setProducts(data));
-        } catch (error) {
-          console.error("Error loading products:", error);
-        }
-      };
+    const loadProducts = async () => {
+      try {
+        const data = await productsService.fetchProducts();
+        dispatch(productAction.setProducts(data));
+      } catch (error) {
+        console.error("Error loading products:", error);
+      }
+    };
 
-      loadProducts();
-    }
-  }, [products, dispatch]);
+    loadProducts();
+  }, [dispatch]);
 
   const filteredProducts =
     filter === "favorites" ? products.filter((p) => p.liked) : products;
