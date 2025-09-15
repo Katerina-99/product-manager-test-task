@@ -6,6 +6,7 @@ interface ProductsState {
   filter: "all" | "favorites";
   page: number;
   limit: number;
+  searchQuery: string;
 }
 
 const initialState: ProductsState = {
@@ -13,6 +14,7 @@ const initialState: ProductsState = {
   filter: "all",
   page: 1,
   limit: 6,
+  searchQuery: "",
 };
 
 export const ProductsSlice = createSlice({
@@ -42,6 +44,10 @@ export const ProductsSlice = createSlice({
     },
     setPage: (state, action: PayloadAction<number>) => {
       state.page = action.payload;
+    },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+      state.page = 1;
     },
   },
 });

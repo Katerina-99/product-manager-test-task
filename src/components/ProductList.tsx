@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
-  const { products, filter, page, limit } = useAppSelector(
+  const { products, filter, page, limit, searchQuery } = useAppSelector(
     (state) => state.products
   );
 
@@ -25,8 +25,14 @@ const ProductList = () => {
     loadProducts();
   }, [dispatch]);
 
-  const filteredProducts =
+  let filteredProducts =
     filter === "favorites" ? products.filter((p) => p.liked) : products;
+
+  if (searchQuery.trim()) {
+    filteredProducts = filteredProducts.filter((p) =>
+      p.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   const start = (page - 1) * limit;
   const end = start + limit;
@@ -49,32 +55,50 @@ const ProductList = () => {
   return (
     <div>
       <Header />
-      <div className="flex flex-wrap items-center justify-center gap-4 p-4">
-        {paginatedProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
 
-      <div className="flex justify-center gap-4 my-4">
-        <Button
-          className="text-base"
-          disabled={page === 1}
-          onClick={handlePrev}
-        >
-          Prev
-        </Button>
+      {filteredProducts.length === 0 ? (
+        <div className="flex flex-col items-center gap-4 p-8">
+          <p className="text-xl">
+            We couldn't find any products matching your search
+          </p>
+          <Button
+            className="text-base"
+            size={"lg"}
+            onClick={() => dispatch(productAction.setSearchQuery(""))}
+          >
+            Back to all products
+          </Button>
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-wrap items-center justify-center gap-4 p-4">
+            {paginatedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
 
-        <Button
-          className="text-base"
-          disabled={page === totalPages}
-          onClick={handleNext}
-        >
-          Next
-        </Button>
-      </div>
-      <span>
-        {page} / {totalPages}
-      </span>
+          <div className="flex justify-center gap-4 my-4">
+            <Button
+              className="text-base"
+              disabled={page === 1}
+              onClick={handlePrev}
+            >
+              Prev
+            </Button>
+
+            <Button
+              className="text-base"
+              disabled={page === totalPages}
+              onClick={handleNext}
+            >
+              Next
+            </Button>
+          </div>
+          <span>
+            {page} / {totalPages}
+          </span>
+        </>
+      )}
     </div>
   );
 };
