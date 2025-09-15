@@ -67,9 +67,16 @@ const ProductDetails = () => {
                 </span>
               </p>
             </CardContent>
-            <CardFooter className="flex justify-between md:px-8">
+            <CardFooter className="flex flex-col justify-between gap-4 md:px-8">
               <Button className="w-full text-lg" onClick={handleBack}>
                 Back to list
+              </Button>{" "}
+              <Button
+                variant="secondary"
+                className="w-full text-lg"
+                onClick={() => navigate(`/edit-product/${product.id}`)}
+              >
+                Edit
               </Button>
             </CardFooter>
           </Card>

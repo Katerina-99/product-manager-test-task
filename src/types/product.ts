@@ -6,9 +6,9 @@ interface Rating {
 export interface Product {
   id: number;
   title: string;
-  price?: number;
+  price: number;
   description: string;
-  category?: string;
+  category: string;
   image: string;
   rating?: Rating;
   liked: boolean;

@@ -49,6 +49,12 @@ export const ProductsSlice = createSlice({
       state.searchQuery = action.payload;
       state.page = 1;
     },
+    updateProduct: (state, action: PayloadAction<Product>) => {
+      const index = state.products.findIndex((p) => p.id === action.payload.id);
+      if (index !== -1) {
+        state.products[index] = action.payload;
+      }
+    },
   },
 });
 
