@@ -18,52 +18,64 @@ const ProductDetails = () => {
     state.products.products.find((p) => p.id === Number(id))
   );
 
-  if (!product) {
-    return (
-      <div className="flex flex-col items-center">
-        <p className="text-center text-2xl mb-8">Product not find</p>
-        <img src={productNotFound} alt="Product Not Found" className="w-sm" />
-      </div>
-    );
-  }
-
   const handleBack = () => {
     navigate("/products");
   };
 
   return (
-    <div className="flex justify-center">
-      <Card className="w-full min-w-2xs max-w-2xl gap-4 py-6 md:py-8">
-        <CardHeader className="md:px-8">
-          <CardTitle className="text-2xl mb-2">{product?.title}</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-2 md:px-8">
+    <>
+      {!product ? (
+        <div className="flex flex-col items-center">
+          <p className="text-center text-2xl mb-8">Product not find</p>
           <img
-            src={product?.image}
-            alt={product?.title}
-            className="h-30 object-contain mx-auto sm:h-40 md:h-50 mb-3"
+            src={productNotFound}
+            alt="Product Not Found"
+            className="w-sm mb-8"
           />
-          <p className="md:mb-3">{product?.description}</p>
-          <p className="self-end mb-3">
-            <span className="text-(--chart-2)">{product?.price}</span> $
-          </p>
-          <p className="self-start text-lg">Category: {product?.category}</p>
-          <p className="self-start">
-            Rate:{" "}
-            <span className="text-(--chart-2)"> {product?.rating?.rate}</span>
-          </p>
-          <p className="self-start mb-3">
-            Count:{" "}
-            <span className="text-(--chart-2)">{product?.rating?.count}</span>
-          </p>
-        </CardContent>
-        <CardFooter className="flex justify-between md:px-8">
-          <Button className="w-full text-lg" onClick={handleBack}>
-            Back to list
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
+          <Button onClick={handleBack}>Back to list</Button>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <Card className="w-full min-w-2xs max-w-2xl gap-4 py-6 md:py-8">
+            <CardHeader className="md:px-8">
+              <CardTitle className="text-2xl mb-2">{product?.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-2 md:px-8">
+              <img
+                src={product?.image}
+                alt={product?.title}
+                className="h-30 object-contain mx-auto sm:h-40 md:h-50 mb-3"
+              />
+              <p className="md:mb-3">{product?.description}</p>
+              <p className="self-end mb-3">
+                <span className="text-(--chart-2)">{product?.price}</span> $
+              </p>
+              <p className="self-start text-lg">
+                Category: {product?.category}
+              </p>
+              <p className="self-start">
+                Rate:{" "}
+                <span className="text-(--chart-2)">
+                  {" "}
+                  {product?.rating?.rate}
+                </span>
+              </p>
+              <p className="self-start mb-3">
+                Count:{" "}
+                <span className="text-(--chart-2)">
+                  {product?.rating?.count}
+                </span>
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-between md:px-8">
+              <Button className="w-full text-lg" onClick={handleBack}>
+                Back to list
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      )}
+    </>
   );
 };
 
