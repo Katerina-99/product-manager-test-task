@@ -4,11 +4,15 @@ import type { Product } from "@/types/product";
 interface ProductsState {
   products: Product[];
   filter: "all" | "favorites";
+  page: number;
+  limit: number;
 }
 
 const initialState: ProductsState = {
   products: [],
   filter: "all",
+  page: 1,
+  limit: 6,
 };
 
 export const ProductsSlice = createSlice({
@@ -34,6 +38,10 @@ export const ProductsSlice = createSlice({
     },
     setFilter: (state, action: PayloadAction<"all" | "favorites">) => {
       state.filter = action.payload;
+      state.page = 1;
+    },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
     },
   },
 });
