@@ -156,7 +156,7 @@ const EditProductForm = () => {
     <div className="flex justify-center">
       <Card className="w-full min-w-2xs max-w-lg gap-4 py-6 md:py-8">
         <CardHeader>
-          <CardTitle>Create New Product</CardTitle>
+          <CardTitle className="text-2xl">Create New Product</CardTitle>
         </CardHeader>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           <CardContent className="flex flex-col gap-4">
@@ -253,7 +253,7 @@ const EditProductForm = () => {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col justify-between gap-4 md:px-8">
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full text-lg">
               Save
             </Button>
             <Button

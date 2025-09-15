@@ -7,6 +7,7 @@ interface ProductsState {
   page: number;
   limit: number;
   searchQuery: string;
+  categoryFilter: string;
 }
 
 const initialState: ProductsState = {
@@ -15,6 +16,7 @@ const initialState: ProductsState = {
   page: 1,
   limit: 6,
   searchQuery: "",
+  categoryFilter: "",
 };
 
 export const ProductsSlice = createSlice({
@@ -31,6 +33,12 @@ export const ProductsSlice = createSlice({
     },
     addProduct: (state, action: PayloadAction<Product>) => {
       state.products.push(action.payload);
+    },
+    updateProduct: (state, action: PayloadAction<Product>) => {
+      const index = state.products.findIndex((p) => p.id === action.payload.id);
+      if (index !== -1) {
+        state.products[index] = action.payload;
+      }
     },
     toggleLike: (state, action: PayloadAction<number>) => {
       const product = state.products.find((p) => p.id === action.payload);
@@ -49,11 +57,9 @@ export const ProductsSlice = createSlice({
       state.searchQuery = action.payload;
       state.page = 1;
     },
-    updateProduct: (state, action: PayloadAction<Product>) => {
-      const index = state.products.findIndex((p) => p.id === action.payload.id);
-      if (index !== -1) {
-        state.products[index] = action.payload;
-      }
+    setCategoryFilter: (state, action: PayloadAction<string>) => {
+      state.categoryFilter = action.payload === "all" ? "" : action.payload;
+      state.page = 1;
     },
   },
 });

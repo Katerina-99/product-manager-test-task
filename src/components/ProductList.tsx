@@ -8,9 +8,8 @@ import { Button } from "./ui/button";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
-  const { products, filter, page, limit, searchQuery } = useAppSelector(
-    (state) => state.products
-  );
+  const { products, filter, page, limit, searchQuery, categoryFilter } =
+    useAppSelector((state) => state.products);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -25,8 +24,17 @@ const ProductList = () => {
     loadProducts();
   }, [dispatch]);
 
-  let filteredProducts =
-    filter === "favorites" ? products.filter((p) => p.liked) : products;
+  let filteredProducts = products;
+
+  if (filter === "favorites") {
+    filteredProducts = filteredProducts.filter((p) => p.liked);
+  }
+
+  if (categoryFilter) {
+    filteredProducts = filteredProducts.filter(
+      (p) => p.category === categoryFilter
+    );
+  }
 
   if (searchQuery.trim()) {
     filteredProducts = filteredProducts.filter((p) =>

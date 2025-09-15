@@ -1,12 +1,36 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { productAction } from "@/store/productsSlice";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const FilterBar = () => {
   const dispatch = useAppDispatch();
   const filter = useAppSelector((state) => state.products.filter);
+  const categoryFilter = useAppSelector(
+    (state) => state.products.categoryFilter
+  );
+  const products = useAppSelector((state) => state.products.products);
+
+  const categoryNames: string[] = [];
+  products.forEach((product) => {
+    if (!categoryNames.includes(product.category)) {
+      categoryNames.push(product.category);
+    }
+  });
 
   const handleFilterChange = (newFilter: "all" | "favorites") => {
     dispatch(productAction.setFilter(newFilter));
+  };
+
+  const handleCategoryChange = (value: string) => {
+    dispatch(productAction.setCategoryFilter(value));
   };
 
   return (
@@ -19,7 +43,7 @@ const FilterBar = () => {
             : ""
         }`}
       >
-        All
+        All products
       </button>
       <span> / </span>
       <button
@@ -32,6 +56,28 @@ const FilterBar = () => {
       >
         Favorites
       </button>
+
+      <div className="ml-3 ">
+        <Select
+          value={categoryFilter || "all"}
+          onValueChange={(value) => handleCategoryChange(value)}
+        >
+          <SelectTrigger className="min-w-[169px]">
+            <SelectValue placeholder="Select a category" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Categories</SelectLabel>
+              <SelectItem value="all">All categories</SelectItem>
+              {categoryNames.map((name) => (
+                <SelectItem key={name} value={name}>
+                  {name}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 };
