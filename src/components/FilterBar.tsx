@@ -34,28 +34,30 @@ const FilterBar = () => {
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <button
-        onClick={() => handleFilterChange("all")}
-        className={`hover:text-primary/90 ${
-          filter === "all"
-            ? "border-2  border-primary shadow-xs rounded-md h-9 px-2 hover:border-primary/90"
-            : ""
-        }`}
-      >
-        All products
-      </button>
-      <span> / </span>
-      <button
-        onClick={() => handleFilterChange("favorites")}
-        className={`hover:text-primary/90 ${
-          filter === "favorites"
-            ? "border-2  border-primary shadow-xs rounded-md h-9 px-2 hover:border-primary/90"
-            : ""
-        }`}
-      >
-        Favorites
-      </button>
+    <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-4">
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => handleFilterChange("all")}
+          className={`hover:text-primary/90 ${
+            filter === "all"
+              ? "border-2  border-primary shadow-xs rounded-md h-9 px-2 hover:border-primary/90"
+              : ""
+          }`}
+        >
+          All products
+        </button>
+        <span> / </span>
+        <button
+          onClick={() => handleFilterChange("favorites")}
+          className={`hover:text-primary/90 ${
+            filter === "favorites"
+              ? "border-2  border-primary shadow-xs rounded-md h-9 px-2 hover:border-primary/90"
+              : ""
+          }`}
+        >
+          Favorites
+        </button>
+      </div>
 
       <div className="ml-3 ">
         <Select

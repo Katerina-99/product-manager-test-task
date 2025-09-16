@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "./ui/input";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { productAction } from "@/store/productsSlice";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,17 +16,26 @@ const Header = () => {
   };
 
   return (
-    <header className="flex flex-wrap items-center justify-center gap-4 py-2 px-10 sm:flex-nowrap sm:gap-8">
-      <Input
-        placeholder="Search by name..."
-        className="basis-full sm:basis-1/3 "
-        value={searchQuery}
-        onChange={heandleSearch}
-      />
+    <header className="flex flex-col items-stretch justify-center gap-2 mx-auto sm:py-2 sm:px-10 2xl:max-w-[1280px]">
+      <div className="flex justify-between gap-4">
+        <Input
+          placeholder="Search by name..."
+          className="basis-full sm:basis-2/3 md:max-w-[50%]"
+          value={searchQuery}
+          onChange={heandleSearch}
+        />
+        <div className="flex gap-4 sm:gap-8">
+          <Button
+            onClick={() => navigate("/create-product")}
+            className="text-base"
+          >
+            Add product
+          </Button>
+          <ThemeToggle />
+        </div>
+      </div>
+
       <FilterBar />
-      <Button onClick={() => navigate("/create-product")} className="text-base">
-        Add product
-      </Button>
     </header>
   );
 };
