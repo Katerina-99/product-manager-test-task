@@ -36,14 +36,6 @@ npm run dev
 npm run build
 ```
 
-## 📂 Структура проекта
+## 📸 Скриншоты
 
-src/
-├── components/ # UI-компоненты (ProductCard, Header, FilterBar и др.)
-├── hooks/ # Кастомные хуки (валидация и т.д.)
-├── store/ # Redux slice (ProductsSlice)
-├── types/ # Типы TypeScript
-├── services/ # Работа с API (productsService)
-
-📸 Скриншоты
 ![Главная страница](public/screenshot.png)
