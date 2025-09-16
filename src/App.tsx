@@ -4,6 +4,7 @@ import ProductList from "./components/ProductList";
 import ProductDetails from "./components/ProductDetails";
 import CreateProductForm from "./components/CreateProductForm";
 import EditProductForm from "./components/EditProductForm";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path="/create-product" element={<CreateProductForm />} />
         <Route path="/edit-product/:id" element={<EditProductForm />} />
 
-        <Route path="*" element={<div>Page not found</div>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

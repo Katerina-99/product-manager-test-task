@@ -32,7 +32,9 @@ const ProductDetails = () => {
             alt="Product Not Found"
             className="w-sm mb-8"
           />
-          <Button onClick={handleBack}>Back to list</Button>
+          <Button onClick={handleBack} className="text-lg">
+            Back to list
+          </Button>
         </div>
       ) : (
         <div className="flex justify-center">
