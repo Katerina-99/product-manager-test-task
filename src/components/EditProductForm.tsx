@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import type { Product } from "@/types/product";
+import { useProductValidation } from "@/hooks/useProductValidation";
 
 const EditProductForm = () => {
   const dispatch = useAppDispatch();
@@ -32,91 +33,20 @@ const EditProductForm = () => {
   const [rate, setRate] = useState(product?.rating?.rate?.toString() || "");
   const [count, setCount] = useState(product?.rating?.count?.toString() || "");
 
-  const [errors, setErrors] = useState({
-    title: "",
-    description: "",
-    price: "",
-    image: "",
-    category: "",
-    rate: "",
-    count: "",
+  const { errors, validate } = useProductValidation({
+    title,
+    description,
+    price,
+    image,
+    category,
+    rate,
+    count,
   });
-
-  const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-./?%&=]*)?$/i;
-
-  const validate = () => {
-    let valid = true;
-    const newErrors = { ...errors };
-
-    if (!title.trim()) {
-      newErrors.title = "Field Title is required";
-      valid = false;
-    } else if (title.length < 3) {
-      newErrors.title = "Field Title must be at least 3 characters";
-      valid = false;
-    } else {
-      newErrors.title = "";
-    }
-
-    if (!description.trim()) {
-      newErrors.description = "Field Description is required";
-      valid = false;
-    } else if (description.length < 30) {
-      newErrors.description =
-        "Field Description must be at least 30 characters";
-      valid = false;
-    } else {
-      newErrors.description = "";
-    }
-
-    if (!price || Number(price) <= 0) {
-      newErrors.price = "Price must be a positive number";
-      valid = false;
-    } else {
-      newErrors.price = "";
-    }
-
-    if (!image.trim()) {
-      newErrors.image = "Field Image URL is required";
-      valid = false;
-    } else if (!urlRegex.test(image)) {
-      newErrors.image = "Enter a valid URL";
-      valid = false;
-    } else {
-      newErrors.image = "";
-    }
-
-    if (!category.trim()) {
-      newErrors.category = "Field Category is required";
-      valid = false;
-    } else {
-      newErrors.category = "";
-    }
-
-    if ((rate && Number(rate) < 0) || Number(rate) > 5) {
-      newErrors.rate = "Field Rate must be between 0 and 5";
-      valid = false;
-    } else {
-      newErrors.rate = "";
-    }
-
-    if (count && Number(count) < 0) {
-      newErrors.count = "Field Count cannot be negative";
-      valid = false;
-    } else {
-      newErrors.count = "";
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validate()) {
-      return;
-    }
+    if (!validate()) return;
 
     if (!product) {
       return <p className="text-center mt-10">Product not found</p>;
