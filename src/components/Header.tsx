@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex flex-col items-stretch justify-center gap-2 mx-auto sm:py-2 sm:px-10 2xl:max-w-[1280px]">
+    <header className="bg-card rounded-lg border flex flex-col items-stretch justify-center gap-2 px-2 py-2 mx-auto sm:px-5 xl:max-w-[1280px]">
       <div className="flex justify-between gap-4">
         <Input
           placeholder="Search by name..."
