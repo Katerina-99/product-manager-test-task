@@ -46,7 +46,7 @@ const ProductDetails = () => {
                 alt={product?.title}
                 className="h-30 object-contain mx-auto sm:h-40 md:h-50 mb-3"
               />
-              <p className="md:mb-3">{product?.description}</p>
+              <p className="wrap-break-word md:mb-3">{product?.description}</p>
               <p className="self-end mb-3">
                 <span className="text-(--chart-2)">{product?.price}</span> $
               </p>

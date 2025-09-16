@@ -46,9 +46,9 @@ export const useProductValidation = (values: ProductFormValues) => {
     if (!values.description.trim()) {
       newErrors.description = "Field Description is required";
       valid = false;
-    } else if (values.description.length < 30) {
+    } else if (values.description.length < 50) {
       newErrors.description =
-        "Field Description must be at least 30 characters";
+        "Field Description must be at least 50 characters";
       valid = false;
     } else {
       newErrors.description = "";
