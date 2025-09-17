@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { productsService } from "@/services/productsService";
 import { productAction } from "@/store/productsSlice";
 import ProductCard from "./ProductCard";
@@ -11,13 +11,20 @@ const ProductList = () => {
   const { products, filter, page, limit, searchQuery, categoryFilter } =
     useAppSelector((state) => state.products);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const loadProducts = async () => {
       try {
+        setIsLoading(true);
         const data = await productsService.fetchProducts();
         dispatch(productAction.setProducts(data));
       } catch (error) {
         console.error("Error loading products:", error);
+        setError("Failed to load products. Please try again later.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -64,7 +71,21 @@ const ProductList = () => {
     <div>
       <Header />
 
-      {filteredProducts.length === 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center p-8">
+          <p className="text-xl">Loading...</p>
+        </div>
+      ) : error ? (
+        <div className="flex flex-col items-center gap-4 p-8">
+          <p className="text-xl text-(--chart-3)">{error}</p>
+          <Button
+            className="text-base"
+            onClick={() => window.location.reload()}
+          >
+            Retry
+          </Button>
+        </div>
+      ) : filteredProducts.length === 0 ? (
         <div className="flex flex-col items-center gap-4 p-8">
           <p className="text-xl">
             We couldn't find any products matching your search
@@ -72,7 +93,10 @@ const ProductList = () => {
           <Button
             className="text-base"
             size={"lg"}
-            onClick={() => dispatch(productAction.setSearchQuery(""))}
+            onClick={() => {
+              dispatch(productAction.setSearchQuery(""));
+              dispatch(productAction.setFilter("all"));
+            }}
           >
             Back to all products
           </Button>
