@@ -34,7 +34,7 @@ const ProductCard = ({ product }: ProductCardProp) => {
 
   return (
     <Card
-      className="w-full min-w-2xs max-w-sm gap-4 py-4 cursor-pointer md:py-8"
+      className="w-full min-w-2xs max-w-sm gap-4 py-4 cursor-pointer"
       onClick={handleOpenDetails}
     >
       <CardHeader>

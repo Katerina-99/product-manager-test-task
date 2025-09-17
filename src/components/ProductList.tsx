@@ -5,6 +5,9 @@ import { productAction } from "@/store/productsSlice";
 import ProductCard from "./ProductCard";
 import Header from "./Header";
 import { Button } from "./ui/button";
+import LoadingState from "./states/LoadingState";
+import ErrorState from "./states/ErrorState";
+import EmptyState from "./states/EmptyState";
 
 const ProductList = () => {
   const dispatch = useAppDispatch();
@@ -72,35 +75,11 @@ const ProductList = () => {
       <Header />
 
       {isLoading ? (
-        <div className="flex justify-center p-8">
-          <p className="text-xl">Loading...</p>
-        </div>
+        <LoadingState />
       ) : error ? (
-        <div className="flex flex-col items-center gap-4 p-8">
-          <p className="text-xl text-(--chart-3)">{error}</p>
-          <Button
-            className="text-base"
-            onClick={() => window.location.reload()}
-          >
-            Retry
-          </Button>
-        </div>
+        <ErrorState message={error} />
       ) : filteredProducts.length === 0 ? (
-        <div className="flex flex-col items-center gap-4 p-8">
-          <p className="text-xl">
-            We couldn't find any products matching your search
-          </p>
-          <Button
-            className="text-base"
-            size={"lg"}
-            onClick={() => {
-              dispatch(productAction.setSearchQuery(""));
-              dispatch(productAction.setFilter("all"));
-            }}
-          >
-            Back to all products
-          </Button>
-        </div>
+        <EmptyState />
       ) : (
         <>
           <div className="flex flex-wrap items-center justify-center gap-4 p-4">
